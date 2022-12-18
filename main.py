@@ -1,5 +1,6 @@
 from tkinter import *
 import math
+from playsound import playsound
 
 # ---------------------------- CONSTANTS AND VARIABLES ------------------- #
 PINK = "#e2979c"
@@ -57,11 +58,17 @@ def timer_count(count):
         timer = window.after(1000, timer_count, count - 1)
     elif count == 0:
         start_timer()
+        play()
         checkmarks = ""
         focus_sessions = math.floor(repeat / 2)
         for _ in range(focus_sessions):
             checkmarks += "✓"
             check_mark.config(text=checkmarks)
+
+
+# ----------------------------SOUND PLAYER-----------------------------#
+def play():
+    playsound("censor-beep-01.mp3")
 
 
 # ---------------------------- UI SETUP ------------------------------- #
@@ -74,7 +81,7 @@ title.grid(column=1, row=0)
 check_mark = Label(fg=GREEN, font=(FONT_NAME, 30, "bold"), bg=YELLOW)
 check_mark.grid(column=1, row=3)
 
-canvas = Canvas(width=200 , height=234, bg=YELLOW, highlightthickness=0)
+canvas = Canvas(width=200, height=234, bg=YELLOW, highlightthickness=0)
 tomato = PhotoImage(file="tomato.png")
 canvas.create_image(100, 112, image=tomato)
 timer_text = canvas.create_text(100, 130, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
